@@ -1,45 +1,54 @@
 import React,{useState, useEffect} from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import './branch.css';
 
 const Container = styled.div`
 display: flex;
 flex-direction: row;
-height: 500px;
+height: 100%;
 border: 1px solid black;
 justify-content: center;
-
+    a:link {
+        text-decoration: none;
+        
+    }
 `
 
 const Card = styled.div`
-height:250px;
-width:200px;
-margin-top: 200px;
-margin-left: 3px;
-margin-right: 3px;
+display: inline-row;
 border: 1px solid red;
 border-radius: 5%;
 text-align:center;
+text-decoration: none;
+background-color: gray;
+
 `
 
+
 const Branch = () => {
-    let [dfac, setDfac] = useState([]);
-    let path = 'http://localhost:5000/dfac_name'
+    let [bases, setBases] = useState([]);
+    let { branchId } = useParams();
+    let path = `http://localhost:5837/military_base?branch=${branchId}`
     useEffect(()=>{
         fetch(path)
         .then(res => res.json())
-        .then(data =>setDfac(data))
-    })
-
+        .then(data =>setBases(data))
+    }, [])
+    console.log(branchId)
     return(
-        <Container>
-            {dfac.map((place) =>{
-                return(
-                    <Link to = '/dfac' >
-                        <Card>{place.name}</Card>
-                    </Link>
-                )
-            })}
+        <Container className='container'>
+                {bases.map((item)=>{
+                    return(
+                        <Link className='nameText' to={`/base/${item.location}`}>
+                            <img src='/Patrick SFB.jpg' alt='Patrick SFB' style={{
+                            width:'200px',
+                            height:'auto'
+                            }}/>
+                            <Card>{item.location}</Card>
+                            </Link>
+                    )
+                })}
         </Container>
     )
 }

@@ -1,21 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, createContext} from "react";
 import styled from 'styled-components';
 import HomeDropDown from "../component/dropdown";
 import {Link, NavLink } from "react-router-dom";
-
+import { BranchContext } from "./BranchContext";
+import CardDisplay from "../component/Card";
 const MainDiv = styled.div`
 display: flex;
 flex-direction: column;
 justify-content:center;
 `
 const FirstDiv = styled.div`
-padding:10%;
 `
 const SecondDiv = styled.div`
 /* padding:20%; */
-margin-top:5px;
 margin-bottom:5px;
-border: 1px solid black;
+bottom-border: 5px solid black;
 `
 const PickDiv = styled.div`
     padding:10px;
@@ -41,40 +40,60 @@ text-align:center;
 `
 const Pick = styled.h3`
     text-align:center;
+    font-size: 1.5em;
 `
 
+
 const Home = () => {
-    let [branch, setBranch] = useState([]);
-    let [bases, setBases] = useState([]);
-    let [url, setUrl] = useState ('http://localhost:5000/military_base');
-    useEffect(()=>{
-        fetch(url)
-        .then(res=>res.json())
-        .then((data)=> setBranch(data));
-    },[])
-
-// const handleClick = (event) =>{
-//   event.target
-// }
-
-    return (
-        <MainDiv>
-            <FirstDiv></FirstDiv>
+    return(
+        <MainDiv >
+            <FirstDiv/>
             <SecondDiv>
                 <PickDiv><Pick>Pick a Branch</Pick></PickDiv>
-                <CardDiv>
-                    {branch.map((item)=>{
-                        return (
-                            <Link to= '/base'>
-                                <Card  >{item.branch}</Card>
-                            </Link>
-                        )
-                    })}
-                </CardDiv>
-            </SecondDiv>
-            <FirstDiv></FirstDiv>
-        </MainDiv>
+                    <CardDiv>
+                        <Link to= '/branch/USAF'>
+                            <img src='./images/USAF.png' alt="USAF"  style={{
+                            width: '250px',
+                            height: 'auto'
+                        }}/>
+                        </Link>
+                        <Link to= '/branch/USSF'>
+                        <img src='/images/Seal_of_the_United_States_Space_Force.svg.png' alt="USSF" style={{
+                            width: '250px',
+                            height: 'auto'
+                        }}/>
+                        </Link>
+                        <Link to= '/branch/USA'>
+                        <img src='./images/USA.png' alt="USA" style={{
+                            width: '250px',
+                            height: 'auto'
+                        }} />
+                        </Link>
+                        <Link to= '/branch/USN'>
+                        <img src='./images/USN.png' alt="USN" style={{
+                            width: '250px',
+                            height: 'auto'
+                        }} />
+                        </Link>
+                        <Link to= '/branch/USMC'>
+                        <img src='./images/USMC.png' alt="USMC" style={{
+                            width: '250px',
+                            height: 'auto'
+                        }} />
+                        </Link>
+                    </CardDiv>
+                </SecondDiv>
+        <FirstDiv/>
+    </MainDiv>
     )
 }
-
 export default Home
+
+
+// branch.map((item)=>{
+//     return (
+//         <Link onClick={()=> {setUrl(`http://localhost:5000/military_base?branch=USAF`)}} to= '/base'>
+//             <Card  >{item.branch}</Card>
+//         </Link>
+//     )
+// })}
