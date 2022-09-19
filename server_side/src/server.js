@@ -64,28 +64,28 @@ app.post('/military_base', (req, res) => {
         res.status(404).send('ERROR, you have not input all properties, please input in the following manner: {"location": "LOCATIONNAME", "branch": "BRANCHNAME"')
     }
 })
-app.patch('/military_base', (req,res) =>{
-    if (req.body.branch != undefined && req.body.location != undefined){
+app.patch('/military_base', (req, res) => {
+    if (req.body.branch != undefined && req.body.location != undefined) {
         knex('military_base')
-        .where({location: req.body.location})
-        .update({...req.body})
-        .select('*')
-        .from('military_base')
-        .then((data)=> res.status(200).send('Entry updated successfully'))
-    
-    } else{
+            .where({ location: req.body.location })
+            .update({ ...req.body })
+            .select('*')
+            .from('military_base')
+            .then((data) => res.status(200).send('Entry updated successfully'))
+
+    } else {
         res.status(404).send('No previous entry found to be updated.')
     }
 })
-app.delete('/military_base', (req,res) =>{
-    if (req.body.branch != undefined && req.body.location != undefined){
-    knex('military_base')
-    .where({location:req.body.location})
-    .delete()
-    .select('*')
-    .from('military_base')
-    .then(data => res.status(200).send('Entry removed successfully'))
-    } else{
+app.delete('/military_base', (req, res) => {
+    if (req.body.branch != undefined && req.body.location != undefined) {
+        knex('military_base')
+            .where({ location: req.body.location })
+            .delete()
+            .select('*')
+            .from('military_base')
+            .then(data => res.status(200).send('Entry removed successfully'))
+    } else {
         res.status(404).send('Error: entry could not be found')
     }
 })
@@ -139,9 +139,9 @@ app.post('/dfac_name', (req, res) => {
                                     name: req.body.name,
                                     location: req.body.location
                                 })
-                                .then(() => {
-                                    res.status(201).send("Entry into dfac_name database created successfully");
-                                })
+                                    .then(() => {
+                                        res.status(201).send("Entry into dfac_name database created successfully");
+                                    })
                             }
                         })
                 }
@@ -152,25 +152,25 @@ app.post('/dfac_name', (req, res) => {
     }
 })
 
-app.patch('/dfac_name/:id', (req,res)=> {
+app.patch('/dfac_name/:id', (req, res) => {
     // let {id} = req.params.id
-    if (req.body.name != undefined && req.body.location != undefined){
+    if (req.body.name != undefined && req.body.location != undefined) {
         knex('dfac_name')
-        .where({id:req.params.id})
-        .update({...req.body})
-        .select('*')
-        .from('dfac_name')
-        .then((data)=> res.status(200).send('Entry updated successfully'))
-        
-    
-    } else{
+            .where({ id: req.params.id })
+            .update({ ...req.body })
+            .select('*')
+            .from('dfac_name')
+            .then((data) => res.status(200).send('Entry updated successfully'))
+
+
+    } else {
         res.status(404).send('No previous entry found to be updated.')
     }
 })
 
 
 
-    //    let {id} = req.params.id;
+//    let {id} = req.params.id;
 //    let { name, location} = req.body
 //     // const {id} = req.params
 //     knex('dfac_name')
@@ -178,16 +178,16 @@ app.patch('/dfac_name/:id', (req,res)=> {
 //     .update({...req.body})
 //     .returning('*')
 //     .then(data => res.status(200).send(data))
-    
+
 // })
 
-app.delete('/dfac_name/:id', (req,res)=>{
+app.delete('/dfac_name/:id', (req, res) => {
     knex('dfac_name')
-    .select('*')
-    .where({id: req.params.id})
-    .delete()
-    .then(data =>res.status(200).send(data) )
-    .catch((err) => res.status(404).send('Player not found'))
+        .select('*')
+        .where({ id: req.params.id })
+        .delete()
+        .then(data => res.status(200).send(data))
+        .catch((err) => res.status(404).send('Player not found'))
 });
 
 app.get('/menu', (req, res) => {
@@ -346,18 +346,20 @@ app.post('/detailed_data', (req, res) => {
         dietary_fiber: req.body.dietary_fiber,
         sugars: req.body.sugar,
         protein: req.body.protein,
-    })
-    .then(() => {knex('menu')
-        .insert(
-            {
-                name_of_menu_item: req.body.name,
-                DFAC_name: req.body.DFAC_name,
-                time_of_day: req.body.time_of_day
-            }
-        )})
-        .then(() => {
-            res.status(200).send("Entry successfully created");
-        })
+    }).then(
+        knex('menu')
+            .insert(
+                {
+                    name_of_menu_item: req.body.name,
+                    DFAC_name: req.body.DFAC_name,
+                    time_of_day: req.body.time_of_day
+                }
+            ).then(() => {
+                res.status(200).send("Entry successfully created");
+            })
+    )
+
+
     // const newData = {
     // knex('detailed_data').insert(newData)
     //     .then(data => res.json(data)) 
@@ -367,19 +369,19 @@ app.post('/detailed_data', (req, res) => {
 })
 
 app.patch('/detailed_data', (req, res) => {
-    
+
     knex
-    .select('*')
-    .from('detailed_data')
-    .where({name:req.body.name})
-    .update({description: req.body.description})
-    .then(data =>{
-        if(!data){
-            return res.status(404).send('Entry not found to be updated')
-        }else {
-            return res.status(200).send('Entry updated successfully')
-        }
-    }).catch(err =>res.status(404).send('ERROR: An error has occurred'))
+        .select('*')
+        .from('detailed_data')
+        .where({ name: req.body.name })
+        .update({ description: req.body.description })
+        .then(data => {
+            if (!data) {
+                return res.status(404).send('Entry not found to be updated')
+            } else {
+                return res.status(200).send('Entry updated successfully')
+            }
+        }).catch(err => res.status(404).send('ERROR: An error has occurred'))
 })
 
 // if (req.body.branch != undefined && req.body.location != undefined){

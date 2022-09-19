@@ -2,43 +2,35 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import * as FaIcons from 'react-icons/fa';
+import DetailedFood from "./DetailedFood";
 
 
 
 
 
-const FoodCard = styled.div`
-    display: inline-block;
-    border: 1px solid black;
-    height: 400px;
-    width: 400px;
-    text-align: center;
-    vertical-align: top;
-    padding: 10px;
-    margin: 20px;
-    background-color: white;
-`
-const FoodContainer = styled.div`
-    display: inline-block;
-    justify-content: center;
-    margin: auto;
-    max-width: 1000px;
-    align-items: center;
-`
 
 
-
-const FoodItem = ({ menu }) => {
+const FoodItem = ({ menu, cart, setCart}) => {
     const [details, setDetails] = useState([])
-    console.log(menu)
+    const [show, setShow] = useState(false);
+    
+    const handleClose = () => setShow(false);
+    const handleShow = () =>{ 
+        setShow(true)
+    };
+    useEffect(() => {
+        fetch(`http://localhost:5837/detailed_data?name=${menu.name_of_menu_item}`)
+        .then(response => response.json())
+        .then(data => setDetails(data))
+    }, [menu])
+    
+    // console.log(values);
+    // console.log('FUll menu',menu)
     return (
-        <FoodContainer>
-            <FoodCard>
-                <h1>{menu.name}</h1>
-                <p>{menu.description}</p>
-                <p>{menu.calories}</p>
-            </FoodCard>
-        </FoodContainer>
+        <DetailedFood details={details} cart={cart} setCart={setCart}/>
     )
 }
 

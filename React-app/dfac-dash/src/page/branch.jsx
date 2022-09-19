@@ -2,28 +2,19 @@ import React,{useState, useEffect} from "react";
 import styled from "styled-components";
 import { Link, useParams } from 'react-router-dom';
 import './branch.css';
+import BranchComponent from '../component/branchComponent.jsx';
 
 const Container = styled.div`
-display: flex;
+display: inline-block;
 flex-direction: row;
 height: 100%;
-border: 1px solid black;
 justify-content: center;
-    a:link {
+&a:link {
         text-decoration: none;
         
     }
 `
 
-const Card = styled.div`
-display: inline-row;
-border: 1px solid red;
-border-radius: 5%;
-text-align:center;
-text-decoration: none;
-background-color: gray;
-
-`
 
 
 const Branch = () => {
@@ -37,18 +28,10 @@ const Branch = () => {
     }, [])
     console.log(branchId)
     return(
-        <Container className='container'>
-                {bases.map((item)=>{
-                    return(
-                        <Link className='nameText' to={`/base/${item.location}`}>
-                            <img src='/Patrick SFB.jpg' alt='Patrick SFB' style={{
-                            width:'200px',
-                            height:'auto'
-                            }}/>
-                            <Card>{item.location}</Card>
-                            </Link>
+        <Container>
+                {bases.map((item)=> <BranchComponent item={item}/>
                     )
-                })}
+                }
         </Container>
     )
 }

@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable('dfac_name', table =>{
-    table.increments();
+    table.increments("id");
     table.string('name', 250);
     table.string('location', 250);
   })

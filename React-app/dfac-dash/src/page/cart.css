@@ -1,0 +1,36 @@
+.button {
+    height:50px;
+    background: #f00;
+    color: #fff;
+    border: 1px solid #f00;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    margin-left: 10px;
+}
+
+.button:hover {
+   transform: scale(1.5);
+}
+
+.idBar {
+    height: 50px;
+    width: 40%;
+    text-align: center;
+    font-size: 20px;
+}
+
+body {
+    background-image: url(https://img.freepik.com/free-photo/american-flag-dark-wooden-table_1232-1011.jpg?w=1380&t=st=1663600023~exp=1663600623~hmac=208561f19338d2e26f5a76ce327390803fa59787556b379e288b80030462e38c);
+    background-size: 100%;
+    background-attachment: fixed;
+}

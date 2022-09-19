@@ -4,6 +4,10 @@ import HomeDropDown from "../component/dropdown";
 import {Link, NavLink } from "react-router-dom";
 import { BranchContext } from "./BranchContext";
 import CardDisplay from "../component/Card";
+import './home.css'
+import useSound from 'use-sound'
+
+
 const MainDiv = styled.div`
 display: flex;
 flex-direction: column;
@@ -29,6 +33,7 @@ display:flex;
 flex-direction: row;
 flex-wrap: wrap;
 justify-content: center;
+margin-top: 50px;
 `
 const Card = styled.div`
 height:250px;
@@ -45,40 +50,50 @@ const Pick = styled.h3`
 
 
 const Home = () => {
+
     return(
-        <MainDiv >
+        <MainDiv style={{
+            backgroundImage:"url(https://img.freepik.com/free-photo/american-flag-dark-wooden-table_1232-1011.jpg?w=1380&t=st=1663600023~exp=1663600623~hmac=208561f19338d2e26f5a76ce327390803fa59787556b379e288b80030462e38c)",
+            backgroundSize: '100%',
+            backgroundAttachment: 'fixed',
+        }} >
             <FirstDiv/>
             <SecondDiv>
-                <PickDiv><Pick>Pick a Branch</Pick></PickDiv>
+                <PickDiv><Pick>Choose your Branch</Pick></PickDiv>
                     <CardDiv>
                         <Link to= '/branch/USAF'>
-                            <img src='./images/USAF.png' alt="USAF"  style={{
+                            <img  className="homeimgs" src='./images/USAF.png' alt="USAF"  style={{
                             width: '250px',
-                            height: 'auto'
+                            height: 'auto',
+                            margin: '35px',
                         }}/>
                         </Link>
                         <Link to= '/branch/USSF'>
-                        <img src='/images/Seal_of_the_United_States_Space_Force.svg.png' alt="USSF" style={{
+                        <img className="homeimgs" src='/images/Seal_of_the_United_States_Space_Force.svg.png' alt="USSF" style={{
                             width: '250px',
-                            height: 'auto'
+                            height: 'auto',
+                            margin: '35px',
                         }}/>
                         </Link>
                         <Link to= '/branch/USA'>
-                        <img src='./images/USA.png' alt="USA" style={{
+                        <img className="homeimgs" src='./images/USA.png' alt="USA" style={{
                             width: '250px',
-                            height: 'auto'
+                            height: 'auto',
+                            margin: '35px',
                         }} />
                         </Link>
                         <Link to= '/branch/USN'>
-                        <img src='./images/USN.png' alt="USN" style={{
+                        <img className="homeimgs" src='./images/USN.png' alt="USN" style={{
                             width: '250px',
-                            height: 'auto'
+                            height: 'auto',
+                            margin: '35px',
                         }} />
                         </Link>
                         <Link to= '/branch/USMC'>
-                        <img src='./images/USMC.png' alt="USMC" style={{
+                        <img className="homeimgs" src='./images/USMC.png' alt="USMC" style={{
                             width: '250px',
-                            height: 'auto'
+                            height: 'auto',
+                            margin: '35px',
                         }} />
                         </Link>
                     </CardDiv>
