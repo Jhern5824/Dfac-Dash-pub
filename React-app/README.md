@@ -14,13 +14,46 @@ The purpose of this application is to allow member of the DOD to be able to orde
 
 ## Running the Project
 
-1. Download the files, which when unzipped will provide you a folder of the files.
-2. Open this folder in your IDE (Integrated Development Environment) of your choice. Some options include Visual Studio Code, PyCharm, or a Code/text editor such as Sublime Text or Atom.
-3. In the provided terminal within the IDE (If you're using sublime text or Atom, ensure to open a separate terminal and change to the project directory, i.e. `cd ~/Downloads/sdi-full-stack-project-scaffold/server_side` or `cd C:\Users\<Your Username>\Downloads\sdi-full-stack-project-scaffold/server_side`. You will also need to open a terminal in the React-App directory `cd ~/Downloads/sdi-full-stack-project-scaffold/React-app` or `cd C:\Users\<Your Username>\Downloads\sdi-full-stack-project-scaffold/React-app`.
-4. Ensure you have nodejs and NPM installed on your computer before proceeding.
-5. To install the required dependencies to run the application, run the command `npm install` ; This is downloading all the required dependencies by parsing through the package.json file. **Note: these files should already be pre-installed, based on how we presented this project. But if it isn't, run `npm install` in the terminal.`
-6. This application also requires the installation of Docker and a container running Postgres for the database compilation. For further details on how to intstall a docker container visit `https://docs.docker.com/samples/postgresql_service/`
-7. After, run `npm start` in both terminals to compile the webpage and run the database, the server should now be running on `localhost:3000` and the database should run on `localhost:5837`
+Spinning up your own container and database for the first time
+Pull latest postgres image for docker
+
+docker pull postgres
+Make a docker volume directory for postgres
+
+mkdir -p $HOME/docker/volumes/postgres
+Spin up the postgres container
+
+ docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres
+Shows list of containers, you will need the container ID for the subsequent command
+
+docker ps -a
+Open a bash command line with the docker container
+
+docker exec -it <PSQL-Container-ID> bash
+Open command line inside psql with the username postgres
+
+psql -U postgres
+Create the database for this project
+
+CREATE DATABASE miltrackdb;
+Select the database that was just created
+
+\c dfac_dash
+Now you are in the dfac_dash database
+
+To initialize the database, run the following commands in the /back-end directory using an ordinary terminal:
+
+npx knex migrate:latest
+npx knex seed:run
+Starting up the application
+Run command to start your react client on localhost:3000.
+
+cd client
+npm start
+Run command to start your back-end server on localhost:30001.
+
+cd server
+npm start
 
 ## Topics
 * Full stack application development using the following:
